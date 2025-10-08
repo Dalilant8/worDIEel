@@ -5,27 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The 5-Letter Word Game</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div id="coin-area">
-        <div id="coin-display">
-            <span>💰</span>
-            <span id="coin-count">0</span>
+<body class="bg-gray-800 text-white min-h-screen flex flex-col items-center p-4">
+    
+    <div class="w-full max-w-lg flex justify-between items-center mb-4">
+        <div id="coin-area" class="flex items-center space-x-4">
+            <div id="coin-display" class="flex items-center text-xl font-bold p-2 rounded bg-gray-700">
+                <span class="text-yellow-400 mr-1">💰</span>
+                <span id="coin-count" class="text-yellow-400">5</span>
+            </div>
+            <button id="mystery-box-button" class="px-3 py-1 bg-blue-600 rounded hover:bg-blue-700 transition duration-150">🎁 Mystery Box</button>
         </div>
-        <button id="mystery-box-button">🎁 Mystery Box</button>
+        <h1 class="text-3xl font-extrabold tracking-widest text-center text-green-400">WORD GAME</h1>
     </div>
 
-    <div id="header-container">
-        <h1 class="game-title">THE 5-LETTER WORD GAME</h1>
+    <div id="game-container" class="relative w-full max-w-lg mb-6 flex flex-col items-center">
+        
+        <button id="hint-button" 
+                onclick="populateStartingWord()" 
+                class="absolute left-0 top-0 mt-2 ml-2 p-2 bg-yellow-600 rounded-full text-white shadow-lg text-sm transition duration-150 hover:bg-yellow-700"
+                title="🧠 Hint (Cost: 2 Coins)">
+            🧠
+        </button>
+
+        <button id="reveal-button" 
+                onclick="revealLetter()" 
+                class="absolute right-0 top-0 mr-2 p-2 bg-indigo-600 rounded-full text-white shadow-lg text-sm transition duration-150 hover:bg-indigo-700 hidden"
+                title="🔍 Reveal (Cost: 3 Coins)">
+            🔍
+        </button>
+
+        <div id="game-board" class="w-full">
+            </div>
+
     </div>
 
-    <div id="game-container">
-        <div id="game-board"></div>
+    <div id="keyboard" class="w-full max-w-xl flex flex-col items-center space-y-1">
+        <div id="row1" class="keyboard-row"></div>
+        <div id="row2" class="keyboard-row"></div>
+        <div id="row3" class="keyboard-row"></div>
     </div>
 
-    <div id="keyboard"></div>
+    <div id="message-modal" class="modal-overlay hidden fixed inset-0 bg-black bg-opacity-50 justify-center items-center">
+        <div class="bg-gray-700 p-8 rounded-lg shadow-xl text-center">
+            <p id="modal-message-text" class="text-xl font-semibold mb-4"></p>
+            <button id="modal-close-button" class="px-6 py-2 bg-green-500 rounded text-white font-bold hover:bg-green-600 transition duration-150">
+                Play Again
+            </button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
