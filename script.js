@@ -20,25 +20,9 @@ let currentHintCost = HINT_COST_BASE;
 let currentRevealCost = REVEAL_COST_BASE;
 let incurredDebtThisGame = false;
 
-// --- Tone.js Setup (REMOVED) ---
-// let synth;
-// try {
-//     synth = new Tone.PolySynth(Tone.Synth).toDestination();
-// } catch (e) {
-//     console.error("Tone.js failed to initialize:", e);
-// }
-
-// function playSound(type) {
-//     if (!synth) return;
-//     if (type === 'keypress') synth.triggerAttackRelease("C4", "32n", Tone.now(), 0.3);
-//     else if (type === 'win') synth.triggerAttackRelease(["C5", "E5", "G5"], "4n", Tone.now(), 0.5);
-//     else if (type === 'fail') synth.triggerAttackRelease("C3", "16n", Tone.now(), 0.5);
-//     else if (type === 'invalid') synth.triggerAttackRelease("C4", "64n", Tone.now(), 0.6);
-// }
-
-// New empty function to replace calls to playSound
+// --- Sound Function (NO-OP replacement for removed Tone.js) ---
 function playSound(type) {
-    // Sound has been removed, this function does nothing now.
+    // Sound is intentionally removed. This function now does nothing.
 }
 
 // --- Coin Functions ---
@@ -62,8 +46,15 @@ function updateCoinDisplay() {
 }
 
 function updateTooltips() {
-    document.getElementById('hint-button').title = `🧠 Hint (Cost: ${currentHintCost} Coins)`;
-    document.getElementById('reveal-button').title = `🔍 Reveal (Cost: ${currentRevealCost} Coins)`;
+    const hintButton = document.getElementById('hint-button');
+    const revealButton = document.getElementById('reveal-button');
+    // Ensure elements exist before setting properties
+    if (hintButton) {
+        hintButton.title = `🧠 Hint (Cost: ${currentHintCost} Coins)`;
+    }
+    if (revealButton) {
+        revealButton.title = `🔍 Reveal (Cost: ${currentRevealCost} Coins)`;
+    }
 }
 
 // --- UI Functions ---
@@ -74,8 +65,10 @@ function showResult(message, buttonText, buttonAction) {
     closeButton.textContent = buttonText;
     closeButton.onclick = () => {
         modal.classList.remove('active');
+        modal.classList.add('hidden'); // Use Tailwind class to hide
         if (typeof buttonAction === 'function') buttonAction();
     };
+    modal.classList.remove('hidden'); // Use Tailwind class to show
     modal.classList.add('active');
 }
 
@@ -121,6 +114,7 @@ function updateRevealButton() {
     const rowElement = document.querySelector(`.word-row[data-row="${currentGuessIndex}"]`);
     if (currentGuessIndex >= 3 && currentGuessIndex < MAX_GUESSES && !isGameOver && rowElement) {
         revealButton.classList.remove('hidden');
+        // Logic for positioning the button relative to the current row
         const rowRect = rowElement.getBoundingClientRect();
         const containerRect = document.getElementById('game-container').getBoundingClientRect();
         const newTop = rowRect.top - containerRect.top; 
@@ -203,7 +197,7 @@ window.revealLetter = function() {
     tile.classList.add('filled', 'revealed-correct-hint');
     currentGuess += TARGET_WORD[revealIndex];
     playSound('keypress');
-}; // <-- THIS BRACE FIXES THE SYNTAX ERROR
+};
 // --- Part 2: Guess Handling, Evaluation, and Game Logic ---
 
 /**
@@ -222,7 +216,10 @@ function handleKey(key) {
         } else {
             playSound('invalid');
             showResult("Not enough letters!", "Okay", () => {});
-            setTimeout(() => document.getElementById('message-modal').classList.remove('active'), 1000);
+            setTimeout(() => {
+                const modal = document.getElementById('message-modal');
+                if(modal) modal.classList.remove('active', 'hidden');
+            }, 1000);
         }
     } else if (letter === 'BACKSPACE' || letter === 'DELETE') {
         handleBackspace(currentRow);
@@ -309,7 +306,7 @@ function checkGuess(currentRow) {
             isGameOver = true;
             userCoins += WIN_REWARD;
             updateCoinDisplay();
-            playSound('win'); // This will call the now-empty playSound function
+            playSound('win');
             showResult(`You won! You earned ${WIN_REWARD} coins! The word was ${TARGET_WORD}.`, "Play Again", resetGame);
         }
 
@@ -327,7 +324,7 @@ function checkGuess(currentRow) {
             isGameOver = true;
             document.getElementById('reveal-button').classList.add('hidden');
             document.getElementById('reveal-button').disabled = true;
-            playSound('fail'); // This will call the now-empty playSound function
+            playSound('fail');
             showResult(`Game Over! The word was ${TARGET_WORD}.`, "Play Again", resetGame);
         }
     }, WORD_LENGTH * 300 + 100);
@@ -350,13 +347,6 @@ window.addEventListener('resize', () => updateRevealButton());
 
 // Initialize game
 window.onload = function () {
-// REMOVED TONE.JS CONTEXT RESUME LOGIC (No longer needed)
-//     if (Tone.context.state !== 'running') {
-//         document.body.addEventListener('click', () => {
-//             if (Tone.context.state !== 'running') {
-//                 Tone.context.resume();
-//             }
-//         }, { once: true });
-//     }
+    // Note: The script is placed just before </body>, so the DOM is ready here.
     resetGame();
 };
