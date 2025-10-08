@@ -180,6 +180,10 @@ window.populateStartingWord = function() {
 window.revealLetter = function() {
     const revealButton = document.getElementById('reveal-button');
     if (isGameOver || currentGuessIndex < 3 || currentGuessIndex >= MAX_GUESSES) return;
+    const revealIndex = currentGuess.length; 
+    if (revealIndex >= WORD_LENGTH) return; // Prevent revealing beyond word length
+
+    // Example implementation: Reveal next letter of TARGET_WORD
     if (userCoins < currentRevealCost) {
         showResult("Not enough coins to reveal a letter!", "Okay", () => {});
         return;
@@ -189,16 +193,12 @@ window.revealLetter = function() {
     updateCoinDisplay();
 
     const currentRow = document.querySelector(`.word-row[data-row="${currentGuessIndex}"]`);
-    const revealIndex = currentGuess.length; 
-    if (revealIndex < WORD_LENGTH) {
-        const targetLetter = TARGET_WORD[revealIndex];
-        const tile = currentRow.querySelector(`.tile[data-col="${revealIndex}"]`);
-        tile.textContent = targetLetter;
-        tile.classList.add('filled', 'revealed-correct-hint');
-        currentGuess += targetLetter;
-        playSound('keypress');
-    }
-};
+    const tile = currentRow.querySelector(`.tile[data-col="${revealIndex}"]`);
+    tile.textContent = TARGET_WORD[revealIndex];
+    tile.classList.add('filled', 'revealed-correct-hint');
+    currentGuess += TARGET_WORD[revealIndex];
+    playSound('keypress');
+}; // <-- THIS BRACE FIXES THE SYNTAX ERROR
 // --- Part 2: Guess Handling, Evaluation, and Game Logic ---
 
 /**
