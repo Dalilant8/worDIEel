@@ -176,11 +176,29 @@ window.populateStartingWord = function() {
     setTimeout(() => { currentGuess = hintWord; hintButton.disabled = false; }, typingDelay * WORD_LENGTH + 100);
 }
 
+// FIXED: Completed the revealLetter function
 window.revealLetter = function() {
     const revealButton = document.getElementById('reveal-button');
     if (isGameOver || currentGuessIndex < 3 || currentGuessIndex >= MAX_GUESSES) return;
+    if (userCoins < currentRevealCost) {
+        showResult("Not enough coins to reveal a letter!", "Okay", () => {});
+        return;
+    }
+    userCoins -= currentRevealCost;
+    if (userCoins < 0) incurredDebtThisGame = true;
+    updateCoinDisplay();
+
+    const currentRow = document.querySelector(`.word-row[data-row="${currentGuessIndex}"]`);
     const revealIndex = currentGuess.length; 
-    if (revealIndex >= WORD_LENGTH) {
+    if (revealIndex < WORD_LENGTH) {
+        const targetLetter = TARGET_WORD[revealIndex];
+        const tile = currentRow.querySelector(`.tile[data-col="${revealIndex}"]`);
+        tile.textContent = targetLetter;
+        tile.classList.add('filled', 'revealed-correct-hint');
+        currentGuess += targetLetter;
+        playSound('keypress');
+    }
+};
 // --- Part 2: Guess Handling, Evaluation, and Game Logic ---
 
 /**
