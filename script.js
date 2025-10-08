@@ -1,3 +1,4 @@
+console.log("JavaScript loaded");
 // --- Game Setup Variables ---
 const POSSIBLE_WORDS = ['CRANE', 'BLAST', 'CHAIR', 'LIGHT', 'EAGLE', 'SHAPE', 'PLANT', 'TRAIN', 'MOUSE', 'PIANO', 'FROST', 'INDEX'];
 const STARTING_WORDS = ['ADIEU', 'CRATE', 'SLANT', 'ROATE', 'RAISE'];
