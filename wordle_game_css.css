@@ -1,0 +1,145 @@
+/* Wordle Game CSS */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #121213;
+    color: #d7dadc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    min-height: 100vh;
+    position: relative;
+}
+
+.game-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #d7dadc;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+#header-container {
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #3a3a3c;
+}
+
+#coin-display {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #2c2c2c;
+    padding: 6px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border: 1px solid #3a3a3c;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+#game-container {
+    position: relative;
+    max-width: 350px;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+#game-board {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-gap: 8px;
+    width: 100%;
+    aspect-ratio: 5 / 6.5;
+    margin: 0;
+}
+
+.word-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 8px;
+}
+
+.tile {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 2px solid #3a3a3c;
+    transition: all 0.3s ease, transform 0.1s;
+    user-select: none;
+    cursor: default;
+    border-radius: 4px;
+}
+
+.filled { border-color: #565758; animation: bounce 0.1s; }
+.revealed-correct-hint { border-color: #6aaa64 !important; color: #d7dadc; background-color: transparent !important; }
+.revealed-present-hint { border-color: #c9b458 !important; color: #d7dadc; background-color: transparent !important; }
+.correct { background-color: #6aaa64; border-color: #6aaa64; color: white; }
+.present { background-color: #c9b458; border-color: #c9b458; color: white; }
+.absent { background-color: #3a3a3c; border-color: #3a3a3c; color: white; }
+
+#keyboard { width: 100%; max-width: 500px; padding: 1rem 0; user-select: none; }
+.key-row { display: flex; justify-content: center; margin-bottom: 8px; }
+.key {
+    display: flex; justify-content: center; align-items: center;
+    font-size: 0.8rem; font-weight: 700;
+    padding: 10px 12px; margin: 0 4px;
+    background-color: #818384; color: #d7dadc; border-radius: 6px;
+    cursor: pointer; text-transform: uppercase; transition: background-color 0.2s, transform 0.1s;
+    flex-grow: 1; min-width: 30px; box-shadow: 0 2px 0 #565758;
+}
+.key:active { transform: translateY(1px); box-shadow: none; }
+.key.enter, .key.backspace { flex-grow: 1.5; font-size: 0.75rem; padding: 10px 8px; }
+.key.key-correct { background-color: #6aaa64; color: white; }
+.key.key-present { background-color: #c9b458; color: white; }
+.key.key-absent { background-color: #3a3a3c; color: white; }
+
+#hint-button, #reveal-button {
+    position: absolute; right: -40px; font-size: 1.8rem; line-height: 1; padding: 0; border: none; cursor: pointer; transition: color 0.2s, opacity 0.3s, top 0.3s ease; z-index: 10;
+}
+#hint-button { top: 0; color: #6aaa64; }
+#reveal-button { top: 0; color: #c9b458; }
+#hint-button:hover:not([disabled]) { color: #92e08c; }
+#reveal-button:hover:not([disabled]) { color: #e3d288; }
+#hint-button[disabled], #reveal-button[disabled] { opacity: 0.5; cursor: not-allowed; }
+.hidden { display: none !important; }
+
+#message-modal {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background-color: rgba(0,0,0,0.9); color: white; padding: 20px 30px;
+    border-radius: 8px; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    text-align: center; transition: opacity 0.5s, visibility 0.5s;
+    opacity: 0; visibility: hidden; max-width: 90vw;
+}
+#message-modal.active { opacity: 1; visibility: visible; }
+#modal-message-text { font-size: 1.2rem; margin-bottom: 15px; }
+#modal-close-button { background-color: #6aaa64; color: white; padding: 8px 15px; border-radius: 4px; font-weight: 700; cursor: pointer; transition: background-color 0.2s; }
+#modal-close-button:hover { background-color: #589650; }
+
+@media (max-width: 500px) {
+    .game-title { font-size: 2rem; }
+    #game-board { grid-gap: 6px; max-width: 90vw; }
+    .word-row { grid-gap: 6px; }
+    .tile { font-size: 1.5rem; }
+    .key { font-size: 0.7rem; padding: 8px 6px; margin: 0 3px; }
+    .key.enter, .key.backspace { font-size: 0.65rem; padding: 8px 6px; }
+    #hint-button, #reveal-button { font-size: 1.4rem; right: -30px; }
+    #header-container { max-width: 90vw; }
+    #coin-display { top: 5px; right: 5px; padding: 4px 8px; font-size: 0.9rem; }
+}
