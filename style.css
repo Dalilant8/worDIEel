@@ -87,9 +87,22 @@ body {
     border-radius: 4px;
 }
 
-.filled { border-color: #565758; animation: bounce 0.1s; }
-.revealed-correct-hint { border-color: #6aaa64 !important; color: #d7dadc; background-color: transparent !important; }
-.revealed-present-hint { border-color: #c9b458 !important; color: #d7dadc; background-color: transparent !important; }
+.filled { 
+    border-color: #565758; 
+    animation: bounce 0.15s ease-in-out; 
+}
+.revealed-correct-hint { 
+    border-color: #6aaa64 !important; 
+    background-color: #6aaa64; 
+    color: white !important; 
+}
+
+.revealed-present-hint { 
+    border-color: #c9b458 !important; 
+    background-color: #c9b458; 
+    color: white !important; 
+}
+
 .correct { background-color: #6aaa64; border-color: #6aaa64; color: white; }
 .present { background-color: #c9b458; border-color: #c9b458; color: white; }
 .absent { background-color: #3a3a3c; border-color: #3a3a3c; color: white; }
@@ -143,3 +156,9 @@ body {
     #header-container { max-width: 90vw; }
     #coin-display { top: 5px; right: 5px; padding: 4px 8px; font-size: 0.9rem; }
 }
+@keyframes bounce {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
