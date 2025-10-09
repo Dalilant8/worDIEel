@@ -1,0 +1,26 @@
+// Expanded, curated list of valid 5-letter words (sample of ~200 common words). Add more for full gameplay!
+const WORDS = [
+"about","above","actor","acute","admit","adopt","adult","after","again","agent","agree","ahead","alarm","album","alert","alike","alive","allow","alone","along","alter",
+"among","anger","angle","angry","apart","apple","apply","arena","argue","arise","array","asset","audio","audit","avoid","award","aware","badly","baker","bases","basic",
+"basis","beach","begin","being","bench","birth","black","blame","blank","blast","blend","bless","blind","block","blood","board","boost","booth","bound","brain","brand",
+"brave","bread","break","breed","brief","bring","broad","broke","brown","build","buyer","cable","carry","catch","cause","chain","chair","chart","cheap","check","chest",
+"chief","child","china","civil","claim","class","clean","clear","clerk","click","clock","close","coach","coast","could","count","court","cover","craft","crash","cream",
+"crime","cross","crowd","crown","curve","cycle","daily","dance","dated","dealt","death","debut","delay","depth","doing","doubt","dozen","draft","drama","drawn","dream",
+"dress","drill","drink","drive","drove","dying","eager","early","earth","eight","elite","empty","enemy","enjoy","enter","entry","equal","error","event","every","exact",
+"exist","extra","faith","false","fault","fiber","field","fight","final","first","fixed","flash","fleet","floor","fluid","focus","force","forth","found","frame","frank",
+"fraud","fresh","front","fruit","fully","funny","giant","given","glass","globe","going","grace","grade","grand","grant","grass","great","green","gross","group","grown",
+"guard","guess","guest","guide","habit","happy","harsh","heart","heavy","hence","horse","hotel","house","human","ideal","image","imply","index","inner","input","issue",
+"japan","joint","judge","juice","known","label","large","laser","later","laugh","layer","learn","least","leave","legal","level","light","limit","liver","local","logic",
+"loose","lower","lucky","lunch","major","maker","march","match","maybe","mayor","meant","media","metal","might","minor","minus","model","money","month","moral","motor",
+"mount","mouse","mouth","movie","music","musty","naked","nerve","never","newly","night","noise","north","novel","nurse","occur","ocean","offer","often","order","organ",
+"other","ought","paint","panel","paper","party","peace","piano","piece","pilot","pitch","place","plain","plane","plant","plate","point","pound","power","press","price",
+"pride","prime","print","prior","prize","proof","proud","prove","queen","quick","quiet","quite","radio","raise","range","rapid","ratio","reach","react","ready","refer",
+"right","rival","river","robot","rough","round","route","royal","rural","scale","scene","scope","score","sense","serve","seven","shall","shape","share","sharp","sheet",
+"shelf","shell","shift","shine","shirt","shock","shoot","short","shown","sight","since","sixth","sixty","skill","sleep","slice","slide","small","smart","smile","smith",
+"solid","solve","sorry","sound","south","space","spare","speak","speed","spend","spent","split","spoke","sport","staff","stage","stake","stand","start","state","steam",
+"steel","stick","still","stock","stone","stood","store","storm","story","strip","stuck","study","stuff","style","sugar","suite","super","sweet","table","taste","teach",
+"teeth","thank","theme","there","thick","thing","think","third","those","three","throw","tight","times","tired","title","today","topic","total","touch","tough","tower",
+"track","trade","train","treat","trend","trial","tribe","trick","trust","truth","twice","uncle","under","union","unity","upper","upset","urban","usage","usual","vague",
+"value","valid","virus","visit","vital","voice","waste","watch","water","wheel","where","which","while","white","whole","whose","woman","women","world","worry","worse",
+"worst","worth","would","wound","write","wrong","yield","young","youth"
+];
